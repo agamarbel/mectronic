@@ -93,6 +93,10 @@ class IceCreamAnalyzerWindow(QMainWindow):
 
 if __name__ == "__main__":
     qt_app = QApplication(sys.argv)
+    qss_path = Path(__file__).resolve().parent / "style.qss"
+    if qss_path.is_file():
+        qt_app.setStyleSheet(qss_path.read_text(encoding="utf-8"))
+
     main_window = IceCreamAnalyzerWindow()
     main_window.show()
     sys.exit(qt_app.exec())
