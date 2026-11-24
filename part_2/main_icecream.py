@@ -9,7 +9,7 @@ from matplotlib.backends.backend_qtagg import NavigationToolbar2QT
 
 from matplotlib.figure import Figure
 
-from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog, QMainWindow
+from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog, QMainWindow,QLabel
 
 if sys.platform == "darwin":
     qt_platform_plugins = (Path(__file__).resolve().parent.parent.parent / "qtplugins" / "platforms")
@@ -37,6 +37,12 @@ class IceCreamAnalyzerWindow(QMainWindow):
         self.pick_file_btn = QPushButton("Open CSV", self)
         self.pick_file_btn.setGeometry(20, 20, 140, 35)
         self.pick_file_btn.clicked.connect(self.load_csv_file)
+
+        self.about_window = AboutWindow()
+        self.about_button = QPushButton('About', self)
+        self.about_button.setGeometry(240,20,100,35)
+        self.about_button.clicked.connect(self.show_about)
+
 
     def load_csv_file(self):
         selected_file, _ = QFileDialog.getOpenFileName(
@@ -77,6 +83,9 @@ class IceCreamAnalyzerWindow(QMainWindow):
         self.chart_ax.set_ylabel("Profits")
 
         self.chart_canvas.draw()  
+
+
+
 
 
 if __name__ == "__main__":
