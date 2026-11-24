@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 import numpy as np
+from about import AboutWindow
 
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
@@ -43,6 +44,8 @@ class IceCreamAnalyzerWindow(QMainWindow):
         self.about_button.setGeometry(240,20,100,35)
         self.about_button.clicked.connect(self.show_about)
 
+    def show_about(self):
+        self.about_window.show()
 
     def load_csv_file(self):
         selected_file, _ = QFileDialog.getOpenFileName(
