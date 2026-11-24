@@ -1,7 +1,7 @@
 import os
 import sys
 from pathlib import Path
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog, QMainWindow
 
 if sys.platform == "darwin":
     qt_platform_plugins = (Path(__file__).resolve().parent.parent.parent / "qtplugins" / "platforms")
@@ -12,6 +12,17 @@ class IceCreamAnalyzerWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Ice Cream Sales Profit Analysis")
         self.resize(920, 720)
+
+
+        self.x_val_temp =[]
+        self.y_val_profits =[]
+
+        
+        self.pick_file_btn = QPushButton("Open CSV", self)
+        self.pick_file_btn.setGeometry(20, 20, 140, 35)
+        self.pick_file_btn.clicked.connect(self.load_csv_file)
+
+        
 
 
 
