@@ -1,6 +1,9 @@
 import os
 import sys
 from pathlib import Path
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
+from matplotlib.figure import Figure
+
 from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog, QMainWindow
 
 if sys.platform == "darwin":
