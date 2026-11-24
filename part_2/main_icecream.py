@@ -1,7 +1,10 @@
 import os
 import sys
 from pathlib import Path
+
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
+from matplotlib.backends.backend_qtagg import NavigationToolbar2QT
+
 from matplotlib.figure import Figure
 
 from PySide6.QtWidgets import QApplication, QPushButton, QFileDialog, QMainWindow
@@ -25,8 +28,9 @@ class IceCreamAnalyzerWindow(QMainWindow):
         self.chart_canvas.setParent(self)
         self.chart_canvas.setGeometry(20, 110, 860, 580)
 
-        self.chart_canvas = FigureCanvasQTAgg(self.chart_fig)
-        self.chart_canvas.setParent(self)
+        self.toolbar_panel = NavigationToolbar2QT(self.chart_canvas, self)
+        self.toolbar_panel.move(20, 65)
+        self.toolbar_panel.resize(860, 40)
 
         self.pick_file_btn = QPushButton("Open CSV", self)
         self.pick_file_btn.setGeometry(20, 20, 140, 35)
