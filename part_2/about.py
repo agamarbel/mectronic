@@ -9,16 +9,16 @@ if sys.platform == "darwin":
     if qt_platform_plugins.is_dir():
         os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = str(qt_platform_plugins)
 
-from PySide6.QtWidgets import QApplication, QDialog, QLabel, QGraphicsDropShadowEffect
+from PySide6.QtWidgets import QApplication, QWidget, QLabel,QGraphicsDropShadowEffect
 from PySide6.QtGui import QPixmap, Qt, QColor
 
 
-class AboutWindow(QDialog):
+class AboutWindow(QWidget):
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self):
+        super().__init__()
         self.setWindowTitle('About Me')
-        self.resize(340, 470)
+        self.resize(340, 520)
 
         self.my_name = QLabel('Agam Arbel', self)
         self.my_name.setGeometry(20, 20, 300, 36)
@@ -50,10 +50,11 @@ class AboutWindow(QDialog):
         self.repo_link.setGeometry(20, 120, 300, 28)
         self.repo_link.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.repo_link.setOpenExternalLinks(True)
-
-
+        self.repo_link.setStyleSheet("""font-size: 16px;
+                            font-weight: bold;""")
+        
         self.my_picture = QLabel(self)
-        self.my_picture.setGeometry(20, 130, 300, 300)
+        self.my_picture.setGeometry(20, 190, 300, 300)
         self.my_picture.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.my_picture.setStyleSheet("""
             background-color: #FAF6F0;
@@ -67,12 +68,7 @@ class AboutWindow(QDialog):
         shadow.setColor(QColor(0, 0, 0, 90))
         self.my_picture.setGraphicsEffect(shadow)
 
-        image_path = Path(__file__).resolve().with_name("littlemy1_fixed.png")
-        image = QPixmap(str(image_path))
-        if image.isNull():
-            raise RuntimeError(f"Could not load About image: {image_path}")
-
-        image = image.scaled(
+        image = QPixmap('littlemy1_fixed.png').scaled(
             500, 500,
             Qt.AspectRatioMode.KeepAspectRatio,
             Qt.TransformationMode.SmoothTransformation
