@@ -1,6 +1,8 @@
 import os
 import sys
 from pathlib import Path
+import numpy as np
+
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT
@@ -43,8 +45,7 @@ class IceCreamAnalyzerWindow(QMainWindow):
             return
         self.x_val_temp = []
         self.y_val_profits = []
-        self.plot_chart()
-
+        
 
         with open(selected_file, "r", encoding="utf-8") as csv_file:
             rows = csv_file.readlines()
@@ -53,11 +54,20 @@ class IceCreamAnalyzerWindow(QMainWindow):
             if len(columns) >= 2:
                 self.x_val_temp.append(float(columns[0]))
                 self.y_val_profits.append(float(columns[1]))
+        self.plot_chart()
 
+                
 
     def plot_chart(self):
         self.chart_ax.clear()
         self.chart_ax.scatter(self.x_val_temp, self.y_val_profits, s=1)
+        if len(self.x_val_temp) > 1:
+            slope, intercept = np.polyfit(self.x_val_temp, self.y_val_profits, 1)
+            x_line = np.array([min(self.x_val_temp), max(self.x_val_temp)])
+            y_line = slope * x_line + intercept
+            sign = "+" if intercept >= 0 else "-"
+            self.chart_ax.plot(x_line, y_line, label=f"y = {slope:.2f}x {sign} {abs(intercept):.2f}")
+            self.chart_ax.legend()
 
         self.chart_ax.spines["top"].set_visible(False)
         self.chart_ax.spines["right"].set_visible(False)
@@ -66,7 +76,8 @@ class IceCreamAnalyzerWindow(QMainWindow):
         self.chart_ax.set_xlabel("Temperature")
         self.chart_ax.set_ylabel("Profits")
 
-        self.chart_canvas.draw()     
+        self.chart_canvas.draw()  
+
 
 if __name__ == "__main__":
     qt_app = QApplication(sys.argv)
