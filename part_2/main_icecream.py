@@ -43,6 +43,8 @@ class IceCreamAnalyzerWindow(QMainWindow):
             return
         self.x_val_temp = []
         self.y_val_profits = []
+        self.plot_chart()
+
 
         with open(selected_file, "r", encoding="utf-8") as csv_file:
             rows = csv_file.readlines()
