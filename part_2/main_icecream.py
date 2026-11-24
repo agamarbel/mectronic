@@ -16,15 +16,15 @@ class IceCreamAnalyzerWindow(QMainWindow):
 
         self.x_val_temp =[]
         self.y_val_profits =[]
-
-        
+    
+    
         self.pick_file_btn = QPushButton("Open CSV", self)
         self.pick_file_btn.setGeometry(20, 20, 140, 35)
         self.pick_file_btn.clicked.connect(self.load_csv_file)
-
+    
+            
+    
         
-
-
 
 if __name__ == "__main__":
     qt_app = QApplication(sys.argv)
