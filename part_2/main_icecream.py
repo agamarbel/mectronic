@@ -51,7 +51,20 @@ class IceCreamAnalyzerWindow(QMainWindow):
             if len(columns) >= 2:
                 self.x_val_temp.append(float(columns[0]))
                 self.y_val_profits.append(float(columns[1]))
-        
+
+
+    def plot_chart(self):
+        self.chart_ax.clear()
+        self.chart_ax.scatter(self.x_val_temp, self.y_val_profits, s=1)
+
+        self.chart_ax.spines["top"].set_visible(False)
+        self.chart_ax.spines["right"].set_visible(False)
+
+        self.chart_ax.set_title("Ice Cream Profits vs Temperature")
+        self.chart_ax.set_xlabel("Temperature")
+        self.chart_ax.set_ylabel("Profits")
+
+        self.chart_canvas.draw()     
 
 if __name__ == "__main__":
     qt_app = QApplication(sys.argv)
